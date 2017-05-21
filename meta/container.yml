@@ -1,10 +1,8 @@
 from: "softasap/alpine:python-2.7"
-user: www-data
-command: ["/bin/true"]
-working_dir: /var/html
+working_dir: /www
 
 volumes:
-- src:/var/html:rw
+- /www
 
 environment:
 - XDEBUG=1

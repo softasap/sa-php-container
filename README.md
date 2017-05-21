@@ -21,6 +21,8 @@ git checkout develop
 pip install -e .[docker,openshift]
 ```
 
+If for some reason install is messed (manual packages updates, removals, etc) - try pip install with `--ignore-installed` flag.
+
 later, when issue fix is released - to uninstall package installed in that way from source:
 
 At {virtualenv}/lib/python2.7/site-packages/ (if not using virtualenv then {system_dir, like /usr/local}/lib/python2.7/dist-packages/)
