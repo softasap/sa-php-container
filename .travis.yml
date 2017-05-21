@@ -20,10 +20,10 @@ script:
 - docker-compose version
 - docker info
 
-- cd tests && ./ build.sh
+- cd tests && ./build.sh
 
   # Start the service
-- cd testa && ansible-container run -d
+- cd test && ansible-container run -d
 - docker ps
 
   # Run tests
