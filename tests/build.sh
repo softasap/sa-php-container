@@ -12,7 +12,7 @@ do
     url_key=$(echo $path_key | sed 's/\.path/.url/')
     url=$(git config -f .projmodules --get "$url_key")
     rm -rf $path
-    git clone https://github.com/${TRAVIS_REPO_SLUG} $path
+    git clone ${TRAVIS_REPO_SLUG} $path
     echo "$path has been initialized"
     cd $path && git checkout ${TRAVIS_COMMIT} && cd ../../
 
