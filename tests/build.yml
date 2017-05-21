@@ -11,6 +11,9 @@
       with_items:
        - build.out
 
+    - name: Build conductor container
+      shell: ansible-container build
+
     - name: Install this role with latest commit   
       shell: "ansible-container install git+https://github.com/{{role_github_repo}},{{role_github_commit}}"
       
