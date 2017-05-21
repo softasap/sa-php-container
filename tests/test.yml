@@ -10,3 +10,7 @@
     debug:
       msg: "Implement tests"
 
+  - name: Check process serves port 9000
+    wait_for:
+      port: 9000
+      delay: 5
