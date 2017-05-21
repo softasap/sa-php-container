@@ -12,11 +12,8 @@
        - build.out
 
     - name: Build conductor container
-      shell: ansible-container build
-
-    - name: Install this role with latest commit   
-      shell: "ansible-container install git+https://github.com/{{role_github_repo}},{{role_github_commit}}"
+      shell: ansible-container build --roles-path ./roles/
       
     - name: Build the project
-      shell: ansible-container --debug build
+      shell: ansible-container --debug build --roles-path ./roles/
 

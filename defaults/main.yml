@@ -34,3 +34,6 @@ php_extensions:
   - "{{php_family_prefix}}-ctype"
   - "{{php_family_prefix}}-phar"
   - "{{php_family_prefix}}-fpm"
+
+php_dev_extensions:
+  - "{{php_family_prefix}}-xdebug"

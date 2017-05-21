@@ -1,0 +1,4 @@
+[submodule "roles/sa-role-under-test"]
+        path = roles/softasap.sa-role-under-test
+        url = https://github.com/softasap/sa-role-under-test.git
+
