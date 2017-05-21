@@ -14,5 +14,3 @@
     - name: Build the project
       shell: ansible-container --debug build --roles-path ./roles/
 
-    - name: Start the project
-      shell: ansible-container --debug run --roles-path ./roles/

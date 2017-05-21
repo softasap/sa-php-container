@@ -23,11 +23,12 @@ script:
 - cd tests && ./build.sh
 
   # Start the service
-- cd test && ansible-container run -d
+- cd tests && ansible-container --debug run --roles-path ./roles/
 - docker ps
 
   # Run tests
-- ansible-playbook test.yml -e role_github_repo=${TRAVIS_REPO_SLUG} -e role_github_commit=${TRAVIS_COMMIT}
+- cd tests && ansible-playbook test.yml -e role_github_repo=${TRAVIS_REPO_SLUG} -e role_github_commit=${TRAVIS_COMMIT}
+
 notifications:
   email: false
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
