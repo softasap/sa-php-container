@@ -43,7 +43,7 @@ services:
   # For example:
   #
    web:
-     from: softasap/alpine:3.5
+     from: alpine:3.5
      roles:
        - softasap.sa-php-container
      volumes:
