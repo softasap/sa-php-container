@@ -4,20 +4,20 @@
   gather_facts: no
   tasks:
 
-- name: Remove output file
-  file:
-    path: "{{ item }}" 
-    state: absent
-  with_items:
-   - build.out
+    - name: Remove output file
+      file:
+        path: "{{ item }}" 
+        state: absent
+      with_items:
+       - build.out
 
-- name: Build the conductor
-  command: ansible-container build
+    - name: Build the conductor
+      command: ansible-container build
     
-- name: Install this role with latest commit   
-  shell: "ansible-container install git+https://github.com/{{role_github_repo}},{{role_github_commit}}"
+    - name: Install this role with latest commit   
+      shell: "ansible-container install git+https://github.com/{{role_github_repo}},{{role_github_commit}}"
       
-- name: Build the project
-  shell: ansible-container --debug build 2>&1 | tee -a build.out
-  ignore_errors: yes
+    - name: Build the project
+      shell: ansible-container --debug build 2>&1 | tee -a build.out
+      ignore_errors: yes
 
