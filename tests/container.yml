@@ -1,0 +1,29 @@
+version: "2"
+settings:
+  conductor_base: alpine:3.5
+
+services:
+  # Add your containers here, specifying the base image you want to build from
+  # For example:
+  #
+   web:
+     from: softasap/alpine:3.5
+     roles:
+       - softasap.sa-php-container
+     volumes:
+       - $PWD:/www:rw
+     environment:
+       - XDEBUG=1
+     ports:
+       - 9000:9000
+       - 9004:9004
+     entrypoint: ["/entrypoint.sh"]
+     dev_overrides:
+       environment:
+         - "DEBUG=1"
+  #
+registries: {}
+  # Add optional registries used for deployment. For example:
+  #  google:
+  #    url: https://gcr.io
+  #    namespace: my-cool-project-xxxxxx

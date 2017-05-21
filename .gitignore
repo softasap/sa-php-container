@@ -1,0 +1,5 @@
+box-example/roles
+box-example/ansible-deployment
+*.retry
+*.out
+.idea

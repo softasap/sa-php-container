@@ -1,0 +1,16 @@
+from: "softasap/alpine:python-2.7"
+user: www-data
+command: ["/bin/true"]
+working_dir: /var/html
+
+volumes:
+- src:/var/html:rw
+
+environment:
+- XDEBUG=1
+
+ports:
+- 9000:9000
+- 9004:9004
+
+entrypoint: ["/entrypoint.sh"]

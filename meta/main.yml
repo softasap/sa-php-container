@@ -1,0 +1,47 @@
+galaxy_info:
+  author: Vyacheslav Voronenko
+  description: Experimental alpine 3.3 based php 5 fpm container
+  company: voronenko.info
+
+  # If the issue tracker for your role is not on github, uncomment the
+  # next line and provide a value
+  # issue_tracker_url: http://example.com/issue/tracker
+
+  # Some suggested licenses:
+  # - BSD (default)
+  # - MIT
+  # - GPLv2
+  # - GPLv3
+  # - Apache
+  # - CC-BY
+  license: MIT 
+
+  min_ansible_container_version: 0.9.0
+
+  # If Ansible is required outside of the build container, provide the minimum version:
+  # min_ansible_version:
+
+  # Optionally specify the branch Galaxy will use when accessing the GitHub
+  # repo for this role. During role install, if no tags are available,
+  # Galaxy will use this branch. During import Galaxy will access files on
+  # this branch. If Travis integration is configured, only notifications for this
+  # branch will be accepted. Otherwise, in all cases, the repo's default branch
+  # (usually master) will be used.
+  #github_branch:
+
+  #
+  # Below are all platforms currently available in Galaxy. Uncomment any that match the base images
+  # of the services defined in meta/container.yml
+  #
+  # platforms:
+  #- name: EL 
+  #  versions:
+  #  - 7
+
+  galaxy_tags:
+    - container
+    - php
+    - alpine
+    - composer
+
+dependencies: []

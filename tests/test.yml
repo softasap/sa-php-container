@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+    docker_host: 0.0.0.0 
+  tasks:
+
+  - name: TBD
+    debug:
+      msg: "Implement tests"
+

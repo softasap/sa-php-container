@@ -1,0 +1,37 @@
+language: python
+dist: trusty
+sudo: required
+
+services:
+- docker
+
+before_install:
+- sudo apt-add-repository 'deb http://archive.ubuntu.com/ubuntu trusty-backports universe'
+- sudo apt-get update -qq
+
+install:
+  # Install Ansible Container and Ansible
+- pip install -e git+https://github.com/ansible/ansible-container.git@develop#egg=ansible_container[docker]
+- pip install ansible
+
+script:
+  # Make sure docker is functioning
+- docker version
+- docker-compose version
+- docker info
+
+- cd tests && ./ build.sh
+
+  # Start the service
+- cd testa && ansible-container run -d
+- docker ps
+
+  # Run tests
+- ansible-playbook test.yml -e role_github_repo=${TRAVIS_REPO_SLUG} -e role_github_commit=${TRAVIS_COMMIT}
+notifications:
+  email: false
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  slack:
+    secure: SK/AOwzYyVtzvMg8nNmohKqPthM6jzOEs8VoKY8Dj28YFJrHsmS6ltXlIYQfYWx1rogKAY7787ZxTXTiEcpKHbGjDKD+FClh82IG/39pFWcInuCRx95Xj+cXefAYXNxfxoqcd2rn75u6hTJ5qx3oYA1/RVm7R8Rw37FqH6wV6ESW93xhQUe9fzTCVDUNKVI$
+    on_success: change
+    on_failure: always
