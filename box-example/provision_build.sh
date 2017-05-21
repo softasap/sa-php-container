@@ -5,7 +5,7 @@ set -e
 GREEN="$(tput setaf 2)"
 RESET="$(tput sgr0)"
 
-PROJECT_NAME="php-fpm-alpine"
+PROJECT_NAME=`cat .project-name`
 
 # echo "${GREEN} Building conductor image ${RESET}"
 # ansible-container build
