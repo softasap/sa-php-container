@@ -2,13 +2,10 @@
 
 set -e
 
-TRAVIS_REPO_SLUG=`git remote --verbose | grep origin | grep fetch | cut -f2 | cut -d':' -f2 | cut -d' ' -f1`
-TRAVIS_COMMIT=`git rev-parse HEAD`
-
 path=roles/softasap.sa-role-under-test
 rm -rf $path || true
 git clone https://${TRAVIS_REPO_SLUG} $path
-cd $path && git checkout ${TRAVIS_COMMIT} && cd ../../
+cd $path && git checkout https://github.com/${TRAVIS_COMMIT} && cd ../../
 
 
 ansible-playbook build.yml -e role_github_repo=${TRAVIS_REPO_SLUG} -e role_github_commit=${TRAVIS_COMMIT}
