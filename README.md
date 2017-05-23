@@ -3,16 +3,18 @@ sa-php-container
 
 [![Build Status](https://travis-ci.org/softasap/sa-php-container.svg?branch=master)](https://travis-ci.org/softasap/sa-php-container)
 
-Alpine based php container with light footprint ([![](https://images.microbadger.com/badges/image/softasap/php:box-example.svg)]())
-managed by ansible role via `ansible-container` tool.
+Universal role to build customized php docker images, managed by ansible role via `ansible-container` tool.
+Role supports automatic dependency installations for some of the popular php plugins
 
-see full featured example for nginx+php-fpm in box-example folder.
+# (A)
+build your own Alpine based php container with light footprint ([![](https://images.microbadger.com/badges/image/softasap/php:box-example.svg)]())
 
-For production consider https://hub.docker.com/_/php/ as a source for base image.
 
-Example of use in `container.yml`:
+native alpine build
 
 ```YAML
+conductor_base: alpine:3.5
+...
 services:
   php:
     from: alpine:3.5
@@ -30,54 +32,90 @@ services:
 
 ```
 
-Expanded volumes:
 
+see full featured example for nginx+php-fpm in box-example folder.
 
+# (B)
+
+For production consider https://hub.docker.com/_/php/ as a source for base image.
+
+Example of use in `container.yml`:
+
+```YAML
+conductor_base: debian:jessie
+...
+services:
+  php:
+    from: php:5.6.30-fpm
+    container_name: sa-php-demo-fpm
+    roles:
+      - softasap.sa-php-container
+    volumes:
+        - "$PWD/app/code:/www"
+    environment:
+      - XDEBUG=1
+    ports:
+      - 9000:9000
+      - 9004:9004
+    entrypoint: ["/entrypoint.sh"]
+
+```
+
+# Role variables
 
 Parameters configured via ansible role parameters: `timezone`, `php_extensions`.
 Possibility to activate xdebug for development mode.
 
-Without any modifications following set of extensions will be activated:
+Without any modifications following role features can be activated:
 
 ```
+
+#For known php extensions install dependencies for official docker php images
+option_auto_dependencies: true
+
+# install composer in path,  requires phar extension
+option_install_composer: true
+
+
 timezone: "Europe/Kiev"
 
-php_family_prefix: "php5"
+php_family_prefix: "php5"  # valid for standalone image from scratch
+
 php_extensions:
-  - "{{php_family_prefix}}-mcrypt"
-  - "{{php_family_prefix}}-soap"
-  - "{{php_family_prefix}}-openssl"
-  - "{{php_family_prefix}}-gmp"
-  - "{{php_family_prefix}}-pdo_odbc"
-  - "{{php_family_prefix}}-json"
-  - "{{php_family_prefix}}-dom"
-  - "{{php_family_prefix}}-pdo"
-  - "{{php_family_prefix}}-zip"
-  - "{{php_family_prefix}}-mysql"
-  - "{{php_family_prefix}}-sqlite3"
-  - "{{php_family_prefix}}-apcu"
-  - "{{php_family_prefix}}-pdo_pgsql"
-  - "{{php_family_prefix}}-bcmath"
-  - "{{php_family_prefix}}-gd"
-  - "{{php_family_prefix}}-xcache"
-  - "{{php_family_prefix}}-odbc"
-  - "{{php_family_prefix}}-pdo_mysql"
-  - "{{php_family_prefix}}-pdo_sqlite"
-  - "{{php_family_prefix}}-gettext"
-  - "{{php_family_prefix}}-xmlreader"
-  - "{{php_family_prefix}}-xmlrpc"
-  - "{{php_family_prefix}}-bz2"
-  - "{{php_family_prefix}}-memcache"
-  - "{{php_family_prefix}}-mssql"
-  - "{{php_family_prefix}}-iconv"
-  - "{{php_family_prefix}}-pdo_dblib"
-  - "{{php_family_prefix}}-curl"
-  - "{{php_family_prefix}}-ctype"
-  - "{{php_family_prefix}}-phar"
-  - "{{php_family_prefix}}-fpm"
+  - "bcmath" # ok
+  - "bz2"    # ok
+  - "ctype"  # ok
+  - "curl"   # ok
+  - "dom"    # ok
+  - "fpm"    # ok, but NO AUTO DEPENDENCIES for official base image
+  - "gd"     # ok
+  - "gettext" #ok
+  - "gmp"    # ok, but NO AUTO DEPENDENCIES for official base image
+  - "iconv"  # ok
+  - "json"   # ok
+  - "mcrypt" # ok
+  - "memcache" # ok, but NO AUTO DEPENDENCIES for official base image
+  - "mssql"    # ok, but NO AUTO DEPENDENCIES for official base image
+  - "mysql"  # ok
+  - "odbc"   # ok, but NO AUTO DEPENDENCIES for official base image
+  - "openssl" # ok, but NO AUTO DEPENDENCIES for official base image
+  - "pdo"    #ok
+  - "pdo_dblib" # ok, but NO AUTO DEPENDENCIES for official base image
+  - "pdo_mysql" # ok
+  - "pdo_odbc" # ok, but NO AUTO DEPENDENCIES for official base image
+  - "pdo_pgsql" # ok
+  - "pdo_sqlite" # ok
+  - "phar"   # ok
+  - "soap"   # ok
+  - "sqlite3" # ok, but NO AUTO DEPENDENCIES for official base image
+  - "xcache" # ok, but NO AUTO DEPENDENCIES for official base image
+  - "xmlreader" # ok
+  - "xmlrpc" # ok
+  - "xsl"    # ok
+  - "zip" # ok, but NO AUTO DEPENDENCIES for official base image
 
 php_dev_extensions:
-  - "{{php_family_prefix}}-xdebug"
+  - "xdebug"
 ```
 
 

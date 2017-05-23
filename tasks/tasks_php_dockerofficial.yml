@@ -1,0 +1,13 @@
+---
+
+  - debug: var="php_extensions"
+
+  - name: Install php packages
+    shell: "docker-php-ext-install -j$(nproc) {{item}}"
+    with_items:
+      - "{{php_extensions}}"
+
+  - name: Install php dev packages
+    shell: "docker-php-ext-install -j$(nproc) {{item}}"
+    with_items:
+      - "{{php_dev_extensions}}"

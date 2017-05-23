@@ -6,18 +6,19 @@
   - debug: var="php_extensions"
 
   - name: Install php packages
-    shell: "apk add --update {{item}}"
+    shell: "apk add --update {{php_family_prefix}}-{{item}}"
     with_items:
       - "{{php_extensions}}"
 
   - name: Install php dev packages
-    shell: "apk add --update {{item}}"
+    shell: "apk add --update {{php_family_prefix}}-{{item}}"
     with_items:
       - "{{php_dev_extensions}}"
 
 
   - name: Install Сomposer
-    shell: apk add --update curl &&  curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer
+    shell: apk add --update curl
+    when: option_install_composer
 
   - name: Patch /etc/php5/php-fpm.conf
     shell: sed -i "{{item}}" /etc/php5/php-fpm.conf

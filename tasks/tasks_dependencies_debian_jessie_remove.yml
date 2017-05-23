@@ -1,0 +1,82 @@
+---
+  - name: remove mcrypt dependencies
+    apt: pkg="{{dependency}}" state="absent" autoremove="yes"
+    when: '"mcrypt" in php_extensions'
+    with_items:
+      - libmcrypt-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: remove soap/dom/xmlreader/xmlrpc dependencies
+    apt: pkg="{{dependency}}" state="absent" autoremove="yes"
+    when: '"soap" in php_extensions or "dom" in php_extensions or "xmlreader" in php_extensions or "xmlrpc" in php_extensions'
+    with_items:
+      - libxml2-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: remove zlib dependencies
+    apt: pkg="{{dependency}}" state="absent" autoremove="yes"
+    when: '"zlib" in php_extensions'
+    with_items:
+      - libzip-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: remove sqlite3 dependencies
+    apt: pkg="{{dependency}}" state="absent" autoremove="yes"
+    when: '"sqlite3" in php_extensions or "sqlite" in php_extensions'
+    with_items:
+      - libsqlite3-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: remove pdo_pgsql dependencies
+    apt: pkg="{{dependency}}" state="absent" autoremove="yes"
+    when: '"pdo_pgsql" in php_extensions'
+    with_items:
+      - libpq-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: remove gd dependencies (1/2)
+    apt: pkg="{{dependency}}" state="absent" autoremove="yes"
+    when: '"gd" in php_extensions'
+    with_items:
+      - libfreetype6-dev
+      - libjpeg62-turbo-dev
+      - libpng12-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: remove bz2 dependencies
+    apt: pkg="{{dependency}}" state="absent" autoremove="yes"
+    when: '"bz2" in php_extensions'
+    with_items:
+      - libbz2-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: remove curl dependencies
+    apt: pkg="{{dependency}}" state="absent" autoremove="yes"
+    when: '"curl" in php_extensions'
+    with_items:
+      - libcurl3-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: remove phar dependencies
+    apt: pkg="{{dependency}}" state="absent" autoremove="yes"
+    when: '"phar" in php_extensions'
+    with_items:
+      - libssl-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: remove xsl dependencies
+    apt: pkg="{{dependency}}" state="absent" autoremove="yes"
+    when: '"xsl" in php_extensions'
+    with_items:
+      - libxslt-dev
+    loop_control:
+      loop_var: dependency
