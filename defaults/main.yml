@@ -1,39 +1,50 @@
 ---
+
+role_dir: "{{role_path}}"
+
+#For known php extensions install dependencies
+option_auto_dependencies: true
+
+# install composer in path,  requires phar extension
+option_install_composer: true
+
 timezone: "Europe/Kiev"
 
 php_family_prefix: "php5"
 php_extensions:
-  - "mcrypt"
-  - "soap"
-  - "openssl"
-  - "gmp"
-  - "pdo_odbc"
-  - "json"
-  - "dom"
-  - "pdo"
-  - "zip"
-  - "mysql"
-  - "sqlite3"
-  - "apcu"
-  - "pdo_pgsql"
-  - "bcmath"
-  - "gd"
-  - "xcache"
-  - "odbc"
-  - "pdo_mysql"
-  - "pdo_sqlite"
-  - "gettext"
-  - "xmlreader"
-  - "xmlrpc"
-  - "bz2"
-  - "memcache"
-  - "mssql"
-  - "iconv"
-  - "pdo_dblib"
-  - "curl"
-  - "ctype"
-  - "phar"
-  - "fpm"
+  - "bcmath" # ok
+  - "bz2"    # ok
+  - "ctype"  # ok
+  - "curl"   # ok
+  - "dom"    # ok
+  - "fpm"    # ok, but NO AUTO DEPENDENCIES for official base image
+  - "gd"     # ok
+  - "gettext" #ok
+  - "gmp"    # ok, but NO AUTO DEPENDENCIES for official base image
+  - "iconv"  # ok
+  - "json"   # ok
+  - "mcrypt" # ok
+  - "memcache" # ok, but NO AUTO DEPENDENCIES for official base image
+  - "mssql"    # ok, but NO AUTO DEPENDENCIES for official base image
+  - "mysql"  # ok
+  - "odbc"   # ok, but NO AUTO DEPENDENCIES for official base image
+  - "openssl" # ok, but NO AUTO DEPENDENCIES for official base image
+  - "pdo"    #ok
+  - "pdo_dblib" # ok, but NO AUTO DEPENDENCIES for official base image
+  - "pdo_mysql" # ok
+  - "pdo_odbc" # ok, but NO AUTO DEPENDENCIES for official base image
+  - "pdo_pgsql" # ok
+  - "pdo_sqlite" # ok
+  - "phar"   # ok
+  - "soap"   # ok
+  - "sqlite3" # ok, but NO AUTO DEPENDENCIES for official base image
+  - "xcache" # ok, but NO AUTO DEPENDENCIES for official base image
+  - "xmlreader" # ok
+  - "xmlrpc" # ok
+  - "xsl"    # ok
+  - "zip" # ok, but NO AUTO DEPENDENCIES for official base image
 
-php_dev_extensions:
-  - "xdebug"
+pecl_extensions: []
+
+php_dev_extensions: []
+  # - "xdebug"

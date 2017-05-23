@@ -17,7 +17,8 @@
 
 
   - name: Install Сomposer
-    shell: apk add --update curl &&  curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer
+    shell: apk add --update curl
+    when: option_install_composer
 
   - name: Patch /etc/php5/php-fpm.conf
     shell: sed -i "{{item}}" /etc/php5/php-fpm.conf

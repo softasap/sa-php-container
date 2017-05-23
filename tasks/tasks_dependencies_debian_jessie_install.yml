@@ -1,0 +1,107 @@
+---
+
+  - name: install mcrypt dependencies
+    apt: pkg="{{dependency}}" update_cache="yes" cache_valid_time="10"
+    when: '"mcrypt" in php_extensions'
+    with_items:
+      - libmcrypt-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: install soap/dom/xmlreader/xmlrpc dependencies
+    apt: pkg="{{dependency}}" update_cache="yes" cache_valid_time="10"
+    when: '"soap" in php_extensions or "dom" in php_extensions or "xmlreader" in php_extensions or "xmlrpc" in php_extensions'
+    with_items:
+      - libxml2-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: install zlib dependencies
+    apt: pkg="{{dependency}}" update_cache="yes" cache_valid_time="10"
+    when: '"zlib" in php_extensions'
+    with_items:
+      - libzip-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: install mysql dependencies
+    apt: pkg="{{dependency}}" update_cache="yes" cache_valid_time="10"
+    when: '"mysql" in php_extensions'
+    with_items:
+      - mysql-client
+    loop_control:
+      loop_var: dependency
+
+  - name: install sqlite3 dependencies
+    apt: pkg="{{dependency}}" update_cache="yes" cache_valid_time="10"
+    when: '"sqlite3" in php_extensions'
+    with_items:
+      - libsqlite3-dev
+      - libsqlite3-0
+    loop_control:
+      loop_var: dependency
+
+  - name: install pdo_pgsql dependencies
+    apt: pkg="{{dependency}}" update_cache="yes" cache_valid_time="10"
+    when: '"pdo_pgsql" in php_extensions'
+    with_items:
+      - libpq-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: install gd dependencies (1/2)
+    apt: pkg="{{dependency}}" update_cache="yes" cache_valid_time="10"
+    when: '"gd" in php_extensions'
+    with_items:
+      - libfreetype6-dev
+      - libjpeg62-turbo-dev
+      - libpng12-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: install gd dependencies (2/2)
+    shell: docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+    when: '"gd" in php_extensions'
+
+  - name: install bz2 dependencies
+    apt: pkg="{{dependency}}" update_cache="yes" cache_valid_time="10"
+    when: '"bz2" in php_extensions'
+    with_items:
+      - libbz2-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: install curl dependencies
+    apt: pkg="{{dependency}}" update_cache="yes" cache_valid_time="10"
+    when: '"curl" in php_extensions'
+    with_items:
+      - curl
+      - libcurl3
+      - libcurl3-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: install pdo_sqlite dependencies
+    apt: pkg="{{dependency}}" update_cache="yes" cache_valid_time="10"
+    when: '"pdo_sqlite" in php_extensions'
+    with_items:
+      - libsqlite3-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: install phar dependencies
+    apt: pkg="{{dependency}}" update_cache="yes" cache_valid_time="10"
+    when: '"phar" in php_extensions'
+    with_items:
+      - curl      
+      - libssl-dev
+    loop_control:
+      loop_var: dependency
+
+  - name: install xsl dependencies
+    apt: pkg="{{dependency}}" update_cache="yes" cache_valid_time="10"
+    when: '"xsl" in php_extensions'
+    with_items:
+      - libxslt-dev
+    loop_control:
+      loop_var: dependency
