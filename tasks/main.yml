@@ -1,2 +1,8 @@
 ---
+  - name: Detect base image capabilities
+    shell: test -e /usr/local/bin/docker-php-source
+    ignore_errors: true
+    register: docker_php_image
+
   - include: tasks_php_alpine.yml
+    when: docker_php_image | failed and ( ansible_distribution == "Alpine" )

@@ -6,12 +6,12 @@
   - debug: var="php_extensions"
 
   - name: Install php packages
-    shell: "apk add --update {{item}}"
+    shell: "apk add --update {{php_family_prefix}}-{{item}}"
     with_items:
       - "{{php_extensions}}"
 
   - name: Install php dev packages
-    shell: "apk add --update {{item}}"
+    shell: "apk add --update {{php_family_prefix}}-{{item}}"
     with_items:
       - "{{php_dev_extensions}}"
 
