@@ -9,10 +9,10 @@
       - files:
           - "tasks_dependencies_{{ ansible_distribution | lower }}_{{ ansible_distribution_release | lower }}_install.yml"
         skip: true
-    when: docker_php_image and option_auto_dependencies
+    when: not (docker_php_image | failed) and option_auto_dependencies
 
   - include: tasks_php_dockerofficial.yml
-    when: docker_php_image
+    when: not (docker_php_image | failed)
 
   - include: tasks_php_alpine.yml
     when: docker_php_image | failed and ( ansible_distribution == "Alpine" )
@@ -25,4 +25,4 @@
       - files:
           - "tasks_dependencies_{{ ansible_distribution | lower }}_{{ ansible_distribution_release | lower }}_remove.yml"
         skip: true
-    when: docker_php_image and option_auto_dependencies
+    when: not (docker_php_image | failed) and option_auto_dependencies
