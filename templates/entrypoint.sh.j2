@@ -1,3 +1,9 @@
 #!/bin/sh
 set -e
-exec /usr/bin/php-fpm
+
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+	set -- php-fpm "$@"
+fi
+
+exec "$@"

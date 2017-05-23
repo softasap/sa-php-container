@@ -4,25 +4,35 @@
     ignore_errors: true
     register: docker_php_image
 
+  - set_fact:
+      official_docker_image: not (docker_php_image | failed)
+
   - include: "{{ item }}"
     with_first_found:
       - files:
           - "tasks_dependencies_{{ ansible_distribution | lower }}_{{ ansible_distribution_release | lower }}_install.yml"
         skip: true
-    when: not (docker_php_image | failed) and option_auto_dependencies
+    when: official_docker_image and option_auto_dependencies
 
   - include: tasks_php_dockerofficial.yml
-    when: not (docker_php_image | failed)
+    when: official_docker_image
 
   - include: tasks_php_alpine.yml
-    when: docker_php_image | failed and ( ansible_distribution == "Alpine" )
+    when: not official_docker_image and ( ansible_distribution == "Alpine" )
 
   - include: tasks_composer.yml
     when: option_install_composer
+
+  - include: tasks_xdebug.yml
+    when: option_install_xdebug
 
   - include: "{{ item }}"
     with_first_found:
       - files:
           - "tasks_dependencies_{{ ansible_distribution | lower }}_{{ ansible_distribution_release | lower }}_remove.yml"
         skip: true
-    when: not (docker_php_image | failed) and option_auto_dependencies
+    when: official_docker_image and option_auto_dependencies
+
+  - name:  Template entrypoinmt
+    template: src="entrypoint.sh.j2" dest="/usr/local/bin/docker-php-entrypoint" mode="u=rwx,g=rx,o=rx"
+    when: not official_docker_image

@@ -1,0 +1,28 @@
+---
+
+  - name: "Install xdebug {{xdebug_version}} via pecl"
+    shell: "pecl install xdebug-{{xdebug_version}}"
+    register: xdebug_install_result
+    changed_when: "xdebug_install_result.rc == 0"
+    failed_when: "not (('already installed' in xdebug_install_result.stdout) or ('install ok:' in xdebug_install_result.stdout))"
+    when: official_docker_image
+
+  - name: "Install xdebug {{xdebug_version}} via package"
+    shell: "apk install --update xdebug-{{xdebug_version}}"
+    when: not official_docker_image and ( ansible_distribution == "Alpine" )
+
+  # - name: Locate xdebug
+  #   shell: locate xdebug.so
+  #   register: xdebug_location_raw
+
+  - set_fact:
+      xdebug_location: "/usr/local/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so"
+
+  - debug: var="xdebug_location"
+
+  - name: template xdebug.ini
+    template: src="templates/xdebug/xdebug.ini.j2" dest="/usr/local/etc/php/conf.d/xdebug.ini"
+
+  - name: Enable xdebug extension
+    shell: docker-php-ext-enable  xdebug
+    when: official_docker_image
