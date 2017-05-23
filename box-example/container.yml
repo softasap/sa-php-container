@@ -7,7 +7,8 @@ settings:
   # The Conductor container does the heavy lifting, and provides a portable
   # Python runtime for building your target containers. It should be derived
   # from the same distribution as you're building your target containers with.
-  conductor_base: alpine:3.5
+  # conductor_base: alpine:3.5
+  conductor_base: debian:jessie
 
   # When using the k8s or openshift engines, use the following to authorize with the API.
   # Values set here will be passed to the Ansible modules. Any file paths will be mounted
@@ -52,7 +53,7 @@ services:
       volumes_from:
         - php
    php:
-     from: alpine:3.5
+     from: php:5.6.30-fpm
      container_name: sa-php-demo-fpm
      roles:
        - softasap.sa-php-container
@@ -63,7 +64,6 @@ services:
      ports:
        - 9000:9000
        - 9004:9004
-     entrypoint: ["/entrypoint.sh"]
      dev_overrides:
        environment:
          - "DEBUG=1"
