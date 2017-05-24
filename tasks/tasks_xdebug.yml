@@ -10,6 +10,10 @@
 
     when: official_php_docker_compatible
 
+  - name: "XDebug | Install xdebug {{xdebug_version}} via package"
+    shell: "apk install --update xdebug-{{xdebug_version}}"
+    when: not official_php_docker_compatible and ( ansible_distribution == "Alpine" )
+
   - name: XDebug | Template ini
     template: src="xdebug/xdebug.ini.j2"  dest="{{php_extension_conf_path}}/xdebug.ini"
 

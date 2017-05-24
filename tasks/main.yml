@@ -40,7 +40,7 @@
       php_extension_conf_path: "{{php_extension_conf_path_raw.stdout}}"
 
   - include: tasks_xdebug.yml
-    when: option_install_composer
+    when: option_install_xdebug
 
   - include: "{{ item }}"
     with_first_found:
