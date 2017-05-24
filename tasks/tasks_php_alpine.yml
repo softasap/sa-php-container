@@ -1,34 +1,27 @@
 ---
-
-  - name: Prepare for install
-    shell: "apk update && apk upgrade && apk add --update tzdata && echo '{{timezone}}' > /etc/timezone"
-
-  - debug: var="php_extensions"
-
-  - name: Install php packages
+  - name: Install php packages on alpine
     shell: "apk add --update {{php_family_prefix}}-{{item}}"
     with_items:
       - "{{php_extensions}}"
 
-  - name: Install php dev packages
+  - name: Install php dev packages on alpine
     shell: "apk add --update {{php_family_prefix}}-{{item}}"
     with_items:
       - "{{php_dev_extensions}}"
 
-
-  - name: Install Сomposer
+  - name: install curl
     shell: apk add --update curl
     when: option_install_composer
 
-  - name: Patch /etc/php5/php-fpm.conf
-    shell: sed -i "{{item}}" /etc/php5/php-fpm.conf
+  - name: Patch /etc/php5/php-fpm.conf on alpine
+    shell: sed -i "{{item}}" /etc/{{php_family_prefix}}/php-fpm.conf
     with_items:
       - "s|;*daemonize\\s*=\\s*yes|daemonize = no|g"
       - "s|;*listen\\s*=\\s*127.0.0.1:9000|listen = 9000|g"
       - "s|;*listen\\s*=\\s*/||g"
 
-  - name: Patch /etc/php5/php.ini
-    shell: sed -i "{{item}}" /etc/php5/php.ini
+  - name: Patch /etc/php5/php.ini on alpine
+    shell: sed -i "{{item}}" /etc/{{php_family_prefix}}/php.ini
     with_items:
       - "s|;*date.timezone =.*|date.timezone = {{timezone}}|i"
       - "s|;*memory_limit =.*|memory_limit = {{php_memory_limit | default('512M')}}|i"
@@ -39,8 +32,3 @@
 
   - name: Application dir
     file: path="{{app_dir | default('/www')}}" state="directory"
-
-  - name: Cleaning up
-    shell: |
-      	apk del tzdata && \
-      	rm -rf /var/cache/apk/*

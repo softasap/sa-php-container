@@ -1,0 +1,5 @@
+---
+  - name: Cleaning up
+    shell: |
+      	apk del tzdata && \
+      	rm -rf /var/cache/apk/*

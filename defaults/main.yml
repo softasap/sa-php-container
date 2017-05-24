@@ -12,6 +12,7 @@ option_install_composer: true
 option_install_xdebug: true
 xdebug_version: 2.5.0
 xdebug_remote_port: 9004 # set to 9000, if port is not exposed over the same box
+option_allow_xdebug_workarounds: true
 
 timezone: "Europe/Kiev"
 
@@ -22,14 +23,13 @@ php_extensions:
   # - "bcmath" # ok
   # - "bz2"    # ok
   # - "ctype"  # ok
-  - "curl"   # ok
+   - "curl"   # ok
   # - "dom"    # ok
-  # - "fpm"    # ok, but NO AUTO DEPENDENCIES for official base image
   # - "gd"     # ok
   # - "gettext" #ok
   # - "gmp"    # ok, but NO AUTO DEPENDENCIES for official base image
   # - "iconv"  # ok
-  # - "json"   # ok
+   - "json"   # ok
   # - "mcrypt" # ok
   # - "memcache" # ok, but NO AUTO DEPENDENCIES for official base image
   # - "mssql"    # ok, but NO AUTO DEPENDENCIES for official base image
@@ -42,7 +42,7 @@ php_extensions:
   # - "pdo_odbc" # ok, but NO AUTO DEPENDENCIES for official base image
   # - "pdo_pgsql" # ok
   # - "pdo_sqlite" # ok
-  - "phar"   # ok
+   - "phar"   # ok
   # - "soap"   # ok
   # - "sqlite3" # ok, but NO AUTO DEPENDENCIES for official base image
   # - "xcache" # ok, but NO AUTO DEPENDENCIES for official base image

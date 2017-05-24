@@ -5,14 +5,20 @@
     register: docker_php_image
 
   - set_fact:
-      official_php_docker_compatible: (not docker_php_image | failed)
+      official_php_docker_compatible: "{{(not docker_php_image | failed)}}"
+
+  - debug: msg="Image based on {{ ansible_distribution | lower }} / {{ ansible_distribution_release | lower }}"
+
+
+  - debug: msg="Docker image specific steps"
 
   - include: "{{ item }}"
     with_first_found:
       - files:
           - "tasks_dependencies_{{ ansible_distribution | lower }}_{{ ansible_distribution_release | lower }}_install.yml"
+          - "tasks_dependencies_{{ ansible_distribution | lower }}_install.yml"
         skip: true
-    when: official_php_docker_compatible and option_auto_dependencies
+    when: option_auto_dependencies
 
   - include: tasks_php_dockerofficial.yml
     when: official_php_docker_compatible
@@ -46,8 +52,9 @@
     with_first_found:
       - files:
           - "tasks_dependencies_{{ ansible_distribution | lower }}_{{ ansible_distribution_release | lower }}_remove.yml"
+          - "tasks_dependencies_{{ ansible_distribution | lower }}_remove.yml"
         skip: true
-    when: official_php_docker_compatible and option_auto_dependencies
+    when: option_auto_dependencies
 
   - name:  Template entrypoinmt
     template: src="entrypoint.sh.j2" dest="/usr/local/bin/docker-php-entrypoint" mode="u=rwx,g=rx,o=rx"

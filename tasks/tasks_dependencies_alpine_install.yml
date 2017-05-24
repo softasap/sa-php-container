@@ -1,0 +1,20 @@
+---
+
+  - name: Prepare for Alpine clean self install
+    shell: "apk update && apk upgrade && apk add --update tzdata && echo '{{timezone}}' > /etc/timezone"
+
+  - block:
+
+    - name: install {{php_family_prefix}}-fpm
+      shell: "apk add --update {{php_family_prefix}}-fpm"
+
+    - name: install {{php_family_prefix}}-openssl
+      shell: "apk add --update {{php_family_prefix}}-openssl"
+
+    # somehow alpine5 has r1 versions only
+    - set_fact:
+        xdebug_version: "{{xdebug_version}}-r1"
+      when: option_allow_xdebug_workarounds
+
+
+    when: not official_php_docker_compatible
