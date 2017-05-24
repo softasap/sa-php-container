@@ -70,11 +70,17 @@ Without any modifications following role features can be activated:
 
 ```
 
-#For known php extensions install dependencies for official docker php images
+#For known php extensions install dependencies
 option_auto_dependencies: true
 
 # install composer in path,  requires phar extension
 option_install_composer: true
+
+# install xdebug
+option_install_xdebug: true
+xdebug_version: 2.5.0
+xdebug_remote_port: 9004 # set to 9000, if port is not exposed over the same box
+option_allow_xdebug_workarounds: true
 
 
 timezone: "Europe/Kiev"
