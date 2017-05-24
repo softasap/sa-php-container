@@ -40,9 +40,6 @@
   - name: Application dir
     file: path="{{app_dir | default('/www')}}" state="directory"
 
-  - name:  Template entrypoinmt
-    template: src="entrypoint.sh.j2" dest="/entrypoint.sh" mode="u=rwx,g=rx,o=rx"
-
   - name: Cleaning up
     shell: |
       	apk del tzdata && \

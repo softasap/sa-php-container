@@ -8,41 +8,47 @@ option_auto_dependencies: true
 # install composer in path,  requires phar extension
 option_install_composer: true
 
+option_install_xdebug: true
+xdebug_version: 2.5.0
+xdebug_remote_port: 9004 # set to 9000, if port is not exposed over the same box
+
 timezone: "Europe/Kiev"
+
+php_conf_d_dir: "/usr/local/etc/php/conf.d"
 
 php_family_prefix: "php5"
 php_extensions:
-  - "bcmath" # ok
-  - "bz2"    # ok
-  - "ctype"  # ok
+  # - "bcmath" # ok
+  # - "bz2"    # ok
+  # - "ctype"  # ok
   - "curl"   # ok
-  - "dom"    # ok
-  - "fpm"    # ok, but NO AUTO DEPENDENCIES for official base image
-  - "gd"     # ok
-  - "gettext" #ok
-  - "gmp"    # ok, but NO AUTO DEPENDENCIES for official base image
-  - "iconv"  # ok
-  - "json"   # ok
-  - "mcrypt" # ok
-  - "memcache" # ok, but NO AUTO DEPENDENCIES for official base image
-  - "mssql"    # ok, but NO AUTO DEPENDENCIES for official base image
-  - "mysql"  # ok
-  - "odbc"   # ok, but NO AUTO DEPENDENCIES for official base image
-  - "openssl" # ok, but NO AUTO DEPENDENCIES for official base image
-  - "pdo"    #ok
-  - "pdo_dblib" # ok, but NO AUTO DEPENDENCIES for official base image
-  - "pdo_mysql" # ok
-  - "pdo_odbc" # ok, but NO AUTO DEPENDENCIES for official base image
-  - "pdo_pgsql" # ok
-  - "pdo_sqlite" # ok
+  # - "dom"    # ok
+  # - "fpm"    # ok, but NO AUTO DEPENDENCIES for official base image
+  # - "gd"     # ok
+  # - "gettext" #ok
+  # - "gmp"    # ok, but NO AUTO DEPENDENCIES for official base image
+  # - "iconv"  # ok
+  # - "json"   # ok
+  # - "mcrypt" # ok
+  # - "memcache" # ok, but NO AUTO DEPENDENCIES for official base image
+  # - "mssql"    # ok, but NO AUTO DEPENDENCIES for official base image
+  # - "mysql"  # ok
+  # - "odbc"   # ok, but NO AUTO DEPENDENCIES for official base image
+  # - "openssl" # ok, but NO AUTO DEPENDENCIES for official base image
+  # - "pdo"    #ok
+  # - "pdo_dblib" # ok, but NO AUTO DEPENDENCIES for official base image
+  # - "pdo_mysql" # ok
+  # - "pdo_odbc" # ok, but NO AUTO DEPENDENCIES for official base image
+  # - "pdo_pgsql" # ok
+  # - "pdo_sqlite" # ok
   - "phar"   # ok
-  - "soap"   # ok
-  - "sqlite3" # ok, but NO AUTO DEPENDENCIES for official base image
-  - "xcache" # ok, but NO AUTO DEPENDENCIES for official base image
-  - "xmlreader" # ok
-  - "xmlrpc" # ok
-  - "xsl"    # ok
-  - "zip" # ok, but NO AUTO DEPENDENCIES for official base image
+  # - "soap"   # ok
+  # - "sqlite3" # ok, but NO AUTO DEPENDENCIES for official base image
+  # - "xcache" # ok, but NO AUTO DEPENDENCIES for official base image
+  # - "xmlreader" # ok
+  # - "xmlrpc" # ok
+  # - "xsl"    # ok
+  # - "zip" # ok, but NO AUTO DEPENDENCIES for official base image
 
 pecl_extensions: []
 

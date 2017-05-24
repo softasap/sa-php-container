@@ -4,20 +4,42 @@
     ignore_errors: true
     register: docker_php_image
 
+  - set_fact:
+      official_php_docker_compatible: (not docker_php_image | failed)
+
   - include: "{{ item }}"
     with_first_found:
       - files:
           - "tasks_dependencies_{{ ansible_distribution | lower }}_{{ ansible_distribution_release | lower }}_install.yml"
         skip: true
-    when: docker_php_image and option_auto_dependencies
+    when: official_php_docker_compatible and option_auto_dependencies
 
   - include: tasks_php_dockerofficial.yml
-    when: docker_php_image
+    when: official_php_docker_compatible
 
   - include: tasks_php_alpine.yml
-    when: docker_php_image | failed and ( ansible_distribution == "Alpine" )
+    when: not official_php_docker_compatible and ( ansible_distribution == "Alpine" )
 
   - include: tasks_composer.yml
+    when: option_install_composer
+
+  - name: Detect module path
+    shell: echo `php -i | grep "^extension_dir*" | awk '{print $(NF)}'`
+    register: php_module_path_raw
+    tags:
+      -xdebug
+
+  - name: Detect ini path
+    shell: echo `php -i | grep "Scan this dir for additional .ini files" | awk '{print $(NF)}'`
+    register: php_extension_conf_path_raw
+    tags:
+      -xdebug
+
+  - set_fact:
+      php_module_path: "{{php_module_path_raw.stdout}}"
+      php_extension_conf_path: "{{php_extension_conf_path_raw.stdout}}"
+
+  - include: tasks_xdebug.yml
     when: option_install_composer
 
   - include: "{{ item }}"
@@ -25,4 +47,7 @@
       - files:
           - "tasks_dependencies_{{ ansible_distribution | lower }}_{{ ansible_distribution_release | lower }}_remove.yml"
         skip: true
-    when: docker_php_image and option_auto_dependencies
+    when: official_php_docker_compatible and option_auto_dependencies
+
+  - name:  Template entrypoinmt
+    template: src="entrypoint.sh.j2" dest="/usr/local/bin/docker-php-entrypoint" mode="u=rwx,g=rx,o=rx"

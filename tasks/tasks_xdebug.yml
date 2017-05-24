@@ -1,0 +1,17 @@
+---
+
+  - block:
+
+    - name: XDebug | Install from PECL
+      shell: yes | pecl install xdebug-{{xdebug_version}}
+
+    - name: XDebug | Enable extension
+      shell: docker-php-ext-enable xdebug
+
+    when: official_php_docker_compatible
+
+  - name: XDebug | Template ini
+    template: src="xdebug/xdebug.ini.j2"  dest="{{php_extension_conf_path}}/xdebug.ini"
+
+  - name: XDebug | Errors to browser
+    template: src="xdebug/devbox.ini.j2"  dest="{{php_extension_conf_path}}/devbox.ini"

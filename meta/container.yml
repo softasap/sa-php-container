@@ -9,6 +9,7 @@ environment:
 
 ports:
 - 9000:9000
-- 9004:9004
 
-entrypoint: ["/entrypoint.sh"]
+command: php-fpm
+
+entrypoint: ["docker-php-entrypoint"]
