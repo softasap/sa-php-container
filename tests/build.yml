@@ -12,5 +12,5 @@
        - build.out
 
     - name: Build the project
-      shell: ansible-container --debug build --roles-path ./roles/
+      shell: ansible-container --debug --project-name role_under_test build --roles-path ./roles/
 
