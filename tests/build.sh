@@ -13,5 +13,5 @@ ansible-playbook build.yml -e role_github_repo=${TRAVIS_REPO_SLUG} -e role_githu
 if [ "$?" == "0" ]; then
     # if all looks good, give it a go
     echo "Build completed successfully. Starting the project..."
-    ansible-container run -d --production
+    ansible-container run --debug --roles-path ./roles/ -- -vvv
 fi
