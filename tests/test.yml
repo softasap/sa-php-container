@@ -14,3 +14,4 @@
     wait_for:
       port: 9000
       delay: 5
+      timeout: 15
