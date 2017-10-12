@@ -2,6 +2,15 @@ sa-php-container
 ================
 
 [![Build Status](https://travis-ci.org/softasap/sa-php-container.svg?branch=master)](https://travis-ci.org/softasap/sa-php-container)
+[![License: MIT][softasap-license-image] ][softasap-license-url]
+[![Ansible-Container friendly][ansible-container-image] ][ansible-container-url]
+
+
+[ansible-container-image]: https://img.shields.io/badge/ansible--container-ready-brightgreen.svg
+[ansible-container-url]: http://bit.ly/ansible-container
+[softasap-license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
+[softasap-license-url]: https://opensource.org/licenses/MIT
+
 
 Universal role to build customized php docker images, managed by ansible role via `ansible-container` tool.
 Role supports automatic dependency installations for some of the popular php plugins
